@@ -14,11 +14,10 @@ export const site = {
   facebookUrl: "https://www.facebook.com/tangotwo",
   instagramUrl: "https://www.instagram.com/tango.two",
   email: "hello@tangotwo.info",
-  // 空間使用狀況：Google 日曆公開嵌入（仿原站 piano-room-rent 頁做法）。
-  // 目前接的是使用者帳號中已設為公開的「avaliable time」日曆；
-  // 若要改接其他日曆，需先在 Google 日曆設定將該日曆公開（建議僅顯示忙碌/有空）。
+  // 空間使用狀況：兩兩探戈官方公開日曆（來源同原站 piano-room-rent 頁的嵌入，
+  // 已驗證為公開狀態，僅顯示忙碌時段）。
   calendarEmbedUrl:
-    "https://calendar.google.com/calendar/embed?src=2df2f1127fa83d791b88360ca652f272e8c4b7d933408294b9225c3b2cf42c5b%40group.calendar.google.com&ctz=Asia%2FTaipei&hl=zh_TW&mode=MONTH&showTitle=0&showPrint=0&showTz=0&showCalendars=0",
+    "https://calendar.google.com/calendar/embed?src=tangotwo.taichung%40gmail.com&ctz=Asia%2FTaipei&hl=zh_TW&mode=MONTH&showTitle=0&showPrint=0&showTz=0&showCalendars=0",
   metaTitle: "兩兩探戈 Tango.two｜台中阿根廷探戈課程與初體驗",
   metaDescription:
     "兩兩探戈 Tango.two 是台中的專業阿根廷探戈教室，提供新手體驗、常態課程、私人課、舞會與文化活動。無需舞蹈基礎，也不必自備舞伴。",
