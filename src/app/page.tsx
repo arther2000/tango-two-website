@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { withBase } from "@/lib/paths";
 import Reveal from "@/components/Reveal";
 import Photo from "@/components/Photo";
 import { courses } from "@/data/courses";
@@ -21,7 +22,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-media" aria-hidden="true">
           <Image
-            src="/images/hero-studio-dancers.webp"
+            src={withBase("/images/hero-studio-dancers.webp")}
             alt=""
             fill
             priority

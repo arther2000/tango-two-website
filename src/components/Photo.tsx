@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { withBase } from "@/lib/paths";
 
 // 品牌影像元件。
 // 有 src 時：以 next/image 呈現，並套用暖色調渲染（CSS .photo--img，規格 §7.5 低飽和暖色）。
@@ -20,7 +21,7 @@ export default function Photo({
     return (
       <figure className={`photo photo--img ${ratio} ${className}`.trim()}>
         <Image
-          src={src}
+          src={withBase(src)}
           alt={label}
           fill
           priority={priority}
