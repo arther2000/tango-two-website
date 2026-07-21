@@ -7,9 +7,19 @@
 
 ```bash
 npm install
-npm run dev    # 開發伺服器
-npm run build  # 產線建置（目前全站 24 頁皆為靜態預先產生）
+npm run dev          # 開發伺服器
+npm run build        # 產線建置（目前全站 24 頁皆為靜態預先產生）
+npm run build:pages  # GitHub Pages 用建置（含 /tango-two-website basePath）
 ```
+
+## 部署
+
+- Repo：https://github.com/arther2000/tango-two-website
+- 線上網址：https://arther2000.github.io/tango-two-website/
+- 方式：`npm run build:pages` 產出 `out/`，push 至 `gh-pages` 分支（含 `.nojekyll`）。
+- 注意：靜態匯出 + `images.unoptimized` 模式下 next/image 不會自動加 basePath，
+  圖片路徑一律經 `src/lib/paths.ts` 的 `withBase()` 處理。
+- 未來若綁自訂網域（custom domain），將 `NEXT_PUBLIC_BASE_PATH` 留空重建即可。
 
 ## 結構
 
