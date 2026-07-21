@@ -983,6 +983,21 @@ details.faq-item .faq-answer {
   margin-top: 1.25rem;
 }
 
+/* ---------- Google 日曆嵌入（空間租借頁） ---------- */
+.calendar-embed {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--warm-white);
+}
+
+.calendar-embed iframe {
+  display: block;
+  width: 100%;
+  height: clamp(480px, 60vh, 640px);
+  border: 0;
+}
+
 /* ---------- 分隔線 ---------- */
 .rule {
   border: none;

@@ -63,6 +63,31 @@ export default function StudioRentalPage() {
           </Reveal>
         </div>
       </section>
+
+      {/* 空間使用狀況：Google 日曆公開嵌入（仿原站做法，來源見 site.calendarEmbedUrl） */}
+      <section className="section--tight section section--white">
+        <div className="container">
+          <Reveal>
+            <span className="eyebrow">Availability</span>
+            <h2 className="heading-md">空間使用狀況</h2>
+            <p className="lead" style={{ marginTop: ".75rem" }}>
+              灰色時段為已被使用；預約前歡迎先查看空檔，再透過 LINE 與我們確認。
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="calendar-embed" style={{ marginTop: "2rem" }}>
+              <iframe
+                src={site.calendarEmbedUrl}
+                title="兩兩探戈空間使用狀況（Google 日曆）"
+                loading="lazy"
+              />
+            </div>
+            <p className="caption" style={{ marginTop: "1rem" }}>
+              時區：台北標準時間（GMT+08:00）・日曆僅顯示時段狀態，實際預約以 LINE 確認為準
+            </p>
+          </Reveal>
+        </div>
+      </section>
     </>
   );
 }
