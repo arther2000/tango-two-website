@@ -137,39 +137,101 @@ chapter("第 10 章　成品檢查、輸出與排錯",
  ("10-5","描述問題的模板","我遇到問題，請你當除錯夥伴。我會提供：①我想做什麼；②我做了什麼；③實際發生什麼；④錯誤訊息。請先問我缺少的資訊，再給解法。","ChatGPT / Claude","通用除錯"),
  ])
 
+
+# ───────────────────────── 新增：依課綱 ─────────────────────────
+chapter("觀念原理：AI 剪輯為什麼這麼快",
+ "對應第 1 堂。先懂底層邏輯：語音轉逐字稿 → 以文字決定剪哪裡 → FFmpeg 依清單自動執行。",
+ [
+ ("","為什麼剪得快","請用白話向完全沒剪過片的人解釋：為什麼短影音時代「剪得快、發得多」是流量與成交的關鍵？請給 3 個理由、每個理由一個生活化例子，最後整理成一張 3 欄表格：理由｜白話說明｜對一人公司的意義。","ChatGPT / Claude","開場觀念講稿"),
+ ("","傳統 vs AI 流程","請以表格比較「傳統剪一支 3 分鐘口播影片」與「AI 剪輯流程」：步驟、各步驟耗時、需要的技能、容易出錯的地方。傳統流程總計約 3 小時，請估算 AI 流程每一步的時間，並註明這是估算。","ChatGPT / Claude","流程對照表"),
+ ("","三步驟底層邏輯","請用白話與一張流程圖（文字箭頭即可）說明：語音轉逐字稿 → 以文字決定刪除與保留 → FFmpeg 自動剪輯輸出。每一步說明輸入是什麼、輸出是什麼、為什麼這樣就能自動剪。","ChatGPT / Claude","理解原理"),
+ ("","看懂 FFmpeg 指令","以下是一條 FFmpeg 指令，請逐個參數用白話解釋（-i、-ss、-to、-c copy、-vf、-af），並說明這條指令會對影片做什麼：\n【貼上指令】","ChatGPT / Claude","讀懂指令"),
+ ("","清單轉 FFmpeg","我有一份保留片段清單 segments.json（格式 [{start,end}]）。請寫出一個 Node.js 腳本，依清單用 FFmpeg 切出每段並合併成一支影片，音畫要同步，並先用 dry-run 模式印出將執行的指令讓我檢查。","Claude Code","自動剪輯腳本"),
+ ("","睡前交辦 AI","我有 4 支原始口播影片放在 ./raw 資料夾。請寫一個批次流程：逐支轉逐字稿、刪靜音與贅字與 NG、加字幕、輸出 9:16 mp4 到 ./out。每支完成後把結果寫入 report.md（原長度、剪後長度、刪除處數、是否出錯），失敗的跳過並記錄，不要中斷其他影片。","Claude Code","隔天收到 4 支成片"),
+ ("","辨識適合 AI 的工作","請幫我判斷以下剪輯工作哪些適合全交給 AI、哪些要人工把關，並給理由：去靜音、刪贅字、選 B-roll、決定開頭 Hook、調色、字幕錯字。以表格呈現。","ChatGPT / Claude","分工原則"),
+ ])
+
+chapter("事前規劃：多機位拍攝與素材管理",
+ "對應第 2 堂。好的粗剪來自好的素材：拍攝時就為自動切換鏡頭做準備。",
+ [
+ ("","多機位配置","我要拍【主題】口播影片，有 1 支手機當主鏡頭、1 支當側拍、1 支當特寫。請規劃每支機器的位置、景別、高度、建議焦段，以及三台要如何維持光線與色溫一致。以表格＋簡單俯視圖（文字）呈現。","ChatGPT / Claude","機位配置圖"),
+ ("","收音與同步","請給我多機位同步的方法：拍攝開始時擊掌或拍板、用同一支麥克風收音、各機位音軌的使用方式，以及 AI 剪輯工具依聲波自動對齊時，哪些情況會失敗。","ChatGPT / Claude","同步守則"),
+ ("","素材命名規則","請訂一套素材命名規則，包含：日期、專案、機位（A 主、B 側、C 特寫）、場次、鏡次。給 5 個範例，以及資料夾結構建議，讓 AI 與團隊都能自動辨識。","ChatGPT / Claude","命名規範"),
+ ("","拍前檢查清單","請做一份「開拍前 10 項檢查清單」：電量、儲存空間、對焦、曝光鎖定、收音測試、燈光、背景、手機勿擾模式、時間碼同步、備份。簡短勾選格式。","ChatGPT / Claude","拍前清單"),
+ ("","多機位切換規則","請訂定多機位自動切換規則：預設主鏡頭；講到重點切特寫；每個鏡頭至少停留 2 秒、最多 8 秒；換話題時切側拍；不要在一句話講到一半切換。請整理成可貼給 ChatCut 的指令。","ChatCut","切換規則"),
+ ("","以文字改影片","請把這段逐字稿中標紅的句子刪除，並讓第 3 段與第 5 段互換位置，其餘不動。改完後告訴我影片總長與接點處是否有音訊爆音或畫面跳動的風險。","ChatCut","改文字即改影片"),
+ ])
+
+chapter("專業質感：B-roll、Hook 片頭與封面",
+ "對應第 3 堂。前三秒決定觀眾留不留，B-roll 與封面決定質感。",
+ [
+ ("","AI 生成 B-roll 提示詞","我的口播這段在講【內容】。請替我寫 3 個 AI 生成影片或圖片的提示詞（給 B-roll 用），每個包含：主體、場景、鏡頭運動、光線風格、比例 9:16、時長 3 秒。避免出現文字與人臉。","ChatGPT / Claude","B-roll 提示詞"),
+ ("","B-roll 自動對位","請依逐字稿，找出「適合插入 B-roll」的位置：抽象概念、數字、產品、地點、步驟。每處給：時間碼｜口播內容｜建議畫面｜長度（1.5～3 秒）。口播聲音全程不可中斷。","ChatCut","B-roll 位置表"),
+ ("","動畫說明","請在 Remotion 做一個 3 秒的資訊動畫：標題文字從左滑入，下方三個要點依序彈出，背景為半透明深色。內容為：【要點一／二／三】。字型 Noto Sans TC。","Claude Code","資訊動畫"),
+ ("","前三秒 Hook","請依這支影片內容替我寫 5 種前三秒 Hook：①提問型；②結果先行；③反直覺；④痛點；⑤數字型。每個 Hook 12 字以內，並標註適合搭配的畫面（縮放、字卡、音效）。","ChatGPT / Claude","5 個 Hook"),
+ ("","Hook 片頭製作","請在影片最前面加上 2 秒 Hook 片頭：把全片最精彩的一句話放在最前面，字幕放大 1.3 倍、黃字黑邊，搭配一個「咚」音效，接著再回到影片正常開頭。","ChatCut","Hook 片頭"),
+ ("","封面設計","請替這支影片設計封面：9:16、標題最多 10 字、主色與強調色各 1 種、人物置右下、文字在安全區內（上下各留 15%）。請給 3 個標題方案與版面描述。","ChatGPT / Claude","封面方案"),
+ ("","配樂與混音","加入無歌詞背景音樂，音量為口播的 15%，人聲出現時自動壓低；片頭前 2 秒音樂稍大，結尾 2 秒漸弱。","ChatCut","BGM 混音"),
+ ("","多平台輸出","同一支素材請一次輸出三個版本：TikTok、YouTube Shorts、Facebook／Instagram Reels，皆為 1080x1920 直式 mp4。分別檢查各自的安全區（避開平台介面遮擋）與長度上限，需要微調的地方列出。規格以各平台官方最新公告為準。","ChatCut","三平台版本"),
+ ])
+
+chapter("進化篇：拆解好影片，轉成專屬 AI Skill",
+ "對應第 4 堂。把你看懂的手法寫成 Skill，之後一句指令套用到自己的影片。",
+ [
+ ("","五個觀察點","請依以下五個觀察點拆解這支影片的逐字稿與描述：①Hook（前 3 秒做了什麼）；②節奏（平均鏡頭長度、停頓長度）；③字幕（字型、位置、高亮規則）；④轉場（類型與出現時機）；⑤運鏡（推進與拉遠的位置）。以表格輸出，每項給具體時間碼。\n【貼上影片連結、逐字稿或描述】","ChatGPT / Claude","拆解表"),
+ ("","下載與分析（自己有權使用的影片）","請教我用 yt-dlp 下載【我有權分析的公開影片】的影片與字幕，並用 ffprobe 取得時長、解析度、fps。提醒我：僅供學習研究，不可直接搬運他人內容。","Claude Code","素材與基本資訊"),
+ ("","偵測鏡頭切換","請用 ffmpeg 的 scene 偵測（select='gt(scene,0.3)'）找出影片所有鏡頭切換點，輸出時間碼清單，並計算：鏡頭總數、平均鏡頭長度、最短與最長鏡頭。","Claude Code","節奏數據"),
+ ("","萃取可複製手法","根據上方的拆解結果，請整理成「可複製手法清單」：手法名稱｜怎麼做（具體參數）｜適用情境｜不適用情境。只寫能被程式或 AI 實際執行的，不要寫抽象形容詞（如「有張力」）。","ChatGPT / Claude","手法清單"),
+ ("","手法寫成 Skill","請把以下剪輯手法寫成一份 Claude Skill（SKILL.md）：包含 name、description（說明何時觸發）、輸入需求、逐步流程、具體參數、輸出格式、檢查清單、常見錯誤。語氣為指令式，參數要具體可執行。\n【貼上手法清單】","Claude / Claude Code","SKILL.md 初稿"),
+ ("","Skill 測試","請用這份 Skill 處理下面這段口播逐字稿，並逐條回報你依 Skill 的哪一步做了什麼決定。若 Skill 有說明不清或互相矛盾的地方，請指出並建議修改：\n【貼上逐字稿】","Claude","Skill 驗證"),
+ ("","Skill 優化","這份 Skill 套用到我的影片後，結果有這些問題：【描述】。請修改 Skill 的哪些段落可以改善？只改必要處，並列出修改前後對照。","Claude","Skill 迭代"),
+ ("","作品發表","請替我準備 2 分鐘作品發表稿：①這支影片的目標觀眾；②我用了哪些 AI 手法；③省下多少時間（請用我提供的數字：原本【X】小時、現在【Y】分鐘）；④帶走的 Skill 名稱與用途。","ChatGPT / Claude","發表稿"),
+ ])
+
 # ───────────────────────── 完整剪輯流程 ─────────────────────────
 WORKFLOW = [
- ("1","拍攝","光線、收音、一次講完整句"),
- ("2","語音轉文字","第 3 章 3-1～3-3"),
- ("3","刪贅字、重複、NG","第 4 章 4-1～4-3，人工確認 4-7"),
- ("4","刪靜音、跳剪","4-4、4-6"),
- ("5","縮放與運鏡","第 6 章"),
- ("6","轉場與 B-roll","第 7 章、5-5"),
- ("7","字幕","3-4、3-5"),
- ("8","調色","第 8 章"),
- ("9","聲音與配樂","第 9 章"),
- ("10","檢查與輸出","第 10 章"),
+ ("第 1 堂","觀念原理","「觀念原理」章：底層邏輯、睡前交辦"),
+ ("第 2 堂","事前規劃＋AI 粗剪","「多機位拍攝」「去贅字去重複」「ChatCut」「縮放運鏡」章"),
+ ("第 3 堂","字幕・B-roll・動畫・配樂","「字幕」「B-roll Hook 封面」「轉場」「調色」「聲音」「輸出」章"),
+ ("第 4 堂","拆解好影片、做成 Skill","「進化篇」章"),
+ ("課前","環境準備（選修）","「Node.js」「Remotion」章"),
 ]
 
 e = html.escape
+import re as _re
+ORDER = [
+ ("課前準備（選修｜自學或課後）", [0, 1]),
+ ("第 1 堂　觀念原理篇（09:30–11:00）", [10]),
+ ("第 2 堂　實戰篇 Ⅰ：事前規劃＋AI 一鍵粗剪（11:00–12:30）", [11, 3, 4, 5]),
+ ("第 3 堂　實戰篇 Ⅱ：專業質感一次到位（13:30–15:00）", [2, 12, 6, 7, 8, 9]),
+ ("第 4 堂　進化篇：拆解好影片，轉成專屬 AI Skill（15:00–16:30）", [13]),
+]
 def row_html(r):
     n, scene, prompt, tool, out = r
     return (f"<tr><td class=n>{e(n)}</td><td class=s>{e(scene)}</td>"
             f"<td class=p>{e(prompt).replace(chr(10),'<br>')}</td>"
             f"<td class=t>{e(tool)}</td><td class=o>{e(out)}</td></tr>")
 
-parts = []
-total = 0
-for title, intro, rows, tip in CH:
-    total += len(rows)
-    parts.append(f"<section><h2>{e(title)}</h2>")
-    if intro: parts.append(f"<p class=intro>{e(intro)}</p>")
-    parts.append("<table><thead><tr><th>編號</th><th>情境</th><th>提示詞（直接複製）</th><th>工具</th><th>預期結果</th></tr></thead><tbody>")
-    parts += [row_html(r) for r in rows]
-    parts.append("</tbody></table></section>")
+parts = []; toc_items = []
+total = 0; ci = 0
+for gtitle, idxs in ORDER:
+    parts.append(f"<div class=pb></div><h1 class=part>{e(gtitle)}</h1>")
+    toc_items.append(f"<li class=g>{e(gtitle)}</li>")
+    for i in idxs:
+        ci += 1
+        title, intro, rows, tip = CH[i]
+        title = _re.sub(r"^第 \d+ 章\s*", "", title)
+        total += len(rows)
+        toc_items.append(f"<li>{ci}. {e(title)}</li>")
+        parts.append(f"<section><h2>{ci}. {e(title)}</h2>")
+        if intro: parts.append(f"<p class=intro>{e(intro)}</p>")
+        parts.append("<table><thead><tr><th>編號</th><th>情境</th><th>提示詞（直接複製）</th><th>工具</th><th>預期結果</th></tr></thead><tbody>")
+        for k, r in enumerate(rows, 1):
+            parts.append(row_html((f"{ci}-{k}",) + tuple(r[1:])))
+        parts.append("</tbody></table></section>")
 
-toc = "".join(f"<li>{e(t)}</li>" for t,_,_,_ in CH)
-wf = "".join(f"<tr><td class=n>{a}</td><td>{e(b)}</td><td>{e(c)}</td></tr>" for a,b,c in WORKFLOW)
+toc = "".join(toc_items)
+wf = "".join(f"<tr><td class=n>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>" for a,b,c in WORKFLOW)
 
 doc = f"""<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>AI 剪輯課提示詞講義</title>
 <style>
@@ -194,11 +256,14 @@ td.o {{ width:22mm; }}
 .pb {{ page-break-before:always; }}
 .note {{ border:1px solid #f59e0b; background:#fffbeb; padding:8px 12px; border-radius:4px; margin:4mm 0; }}
 ol li {{ margin:2px 0; }}
+ol.toc {{ list-style:none; padding-left:0; }}
+ol.toc li.g {{ font-weight:700; margin-top:6px; margin-left:-1.2em; }}
+h1.part {{ font-size:20pt; color:#1e3a8a; border-bottom:2px solid #1e3a8a; padding-bottom:4px; margin:0 0 6mm; }}
 </style></head><body>
 <div class="cover"><h1>AI 剪輯課<br>提示詞講義</h1>
 <div class="sub">ChatCut × Remotion × Node.js</div>
 <div class="sub">共 {total} 組可直接複製的提示詞</div>
-<div class="meta">國立臺北科技大學 推廣教育　｜　講師：亞瑟教練</div></div>
+<div class="meta">國立臺北科技大學 推廣教育　｜　2026 年 12 月 5 日　09:30–16:30　｜　講師：吳俊達老師</div></div>
 
 <section><h2>使用說明</h2>
 <ol>
@@ -206,13 +271,12 @@ ol li {{ margin:2px 0; }}
 <li>「工具」欄標示最適合的使用對象：<b>ChatGPT / Claude</b> 用於問答與整理；<b>Claude Code</b> 用於直接改專案程式；<b>ChatCut</b> 直接貼在剪輯對話框。</li>
 <li>先請 AI 列出「建議清單」，確認後再執行，避免誤刪內容。</li>
 <li>每次只做一件事，做完看結果，再下下一個指令。</li>
-<li>遇到錯誤，把完整錯誤訊息貼回去，使用 10-5 的模板。</li>
+<li>遇到錯誤，把完整錯誤訊息貼回去，使用「成品檢查、輸出與排錯」章的通用除錯模板。</li>
 </ol>
 <div class="note">版本與官方規格（Node.js、Remotion、各平台影片規格、授權）會更新，請以官方文件為準。</div>
 <h3>完整剪輯流程對照</h3>
 <table><thead><tr><th>步驟</th><th>工作</th><th>對應提示詞</th></tr></thead><tbody>{wf}</tbody></table>
-<h3>目錄</h3><ol>{toc}</ol></section>
-<div class="pb"></div>
+<h3>目錄</h3><ol class=toc>{toc}</ol></section>
 {''.join(parts)}
 </body></html>"""
 
